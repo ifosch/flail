@@ -1,0 +1,16 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: ${0} zip_file_from_logit"
+    exit 1
+}
+
+[ -z "${1}" ] && usage
+[ -f ${1} ] || usage
+
+cd $(dirname $(dirname ${0}))
+
+unzip ${1} patterns/* &> /dev/null
+rm patterns/.DS_store &> /dev/null
+
+cd - &>/dev/null

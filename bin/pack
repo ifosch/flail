@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm patterns.zip &>/dev/null
+zip patterns.zip patterns/*
