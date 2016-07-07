@@ -1,0 +1,10 @@
+SIDEKIQ_THREAD_ID TID-%{ID}
+SIDEKIQ_JOB_ID JID-%{ID}
+SIDEKIQ_JOB_STATUS (start|done|fail|Failure|enqueued retry)
+SIDEKIQ_JOB_INITIAL %{TIMESTAMP_ISO8601:timestamp} %{POSINT:pid} %{SIDEKIQ_THREAD_ID:thread}
+SIDEKIQ_JOB_START_DONE %{RUBY_CLASS:class_name} %{SIDEKIQ_JOB_ID:job_id}
+SIDEKIQ_JOB_DONE %{NUMBER:secs_to_done:float} sec
+SIDEKIQ_JOB_RETRY Retry %{NUMBER:retry_req} in %{NUMBER:retry_interval} seconds
+SIDEKIQ_JOB_ENQ_RETRY {"retry":%{NUMBER:global_retry},"queue":"%{QUEUE_NAME:queue_enq}","class":"%{RUBY_CLASS:class_name_enq}","args":%{RETRY_ARGS:retry_args_enq},"jid":"%{ID:job_id_enq}","enqueued_at":[0-9.]+,"error_message":"%{ERROR_MESSAGE:error_msg}","error_class":"%{RUBY_CLASS:error_class}","failed_at":"%{TIMESTAMP_ISO8601:failure_timestamp}","retry_count":%{NUMBER:retry_enq},"retried_at":"%{TIMESTAMP_ISO8601:retry_timestamp}"}
+SIDEKIQ_JOB_WARN {"retry"=>([a-z]*|%{NUMBER:global_retry_warn}), "queue"=>"%{QUEUE_NAME:queue_warn}", "class"=>"%{RUBY_CLASS:class_name_warn}", "args"=>%{RETRY_ARGS:retry_args_warn}, "jid"=>"%{ID:job_id_warn}", "enqueued_at"=>[0-9.]+, "error_message"=>"%{ERROR_MESSAGE:error_msg_warn}", "error_class"=>"%{RUBY_CLASS:error_class_warn}", "failed_at"=>"%{TIMESTAMP_ISO8601:failure_timestamp_warn}", "retry_count"=>%{NUMBER:retry_warn}, "retried_at"=>%{TIMESTAMP_ISO8601:retry_timestamp_warn}.*
+SIDEKIQ_JOB_LOG %{SIDEKIQ_JOB_INITIAL}( %{SIDEKIQ_JOB_START_DONE} | )%{RUBY_LOGLEVEL:loglevel}: (%{SIDEKIQ_JOB_STATUS:job_status}($|: %{SIDEKIQ_JOB_DONE}|! %{SIDEKIQ_JOB_RETRY}|: %{SIDEKIQ_JOB_ENQ_RETRY}.*|.*)|%{SIDEKIQ_JOB_WARN}.*|.*)

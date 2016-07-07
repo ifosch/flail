@@ -1,0 +1,19 @@
+ID [a-z0-9]+
+MODULE_NAME [A-Za-z0-9]+
+CLASS_NAME [A-Za-z0-9]+
+QUEUE_NAME [A-Za-z0-9]+
+RETRY_ARGS \[[^\]]*\]
+ERROR_MESSAGE [^"]*
+RUBY_CLASS (%{MODULE_NAME:module_name}::)*%{CLASS_NAME}
+HTTP_METHOD (GET|HEAD|POST|PUT|DELETE|TRACE|OPTIONS|CONNECT|PATCH)
+HTTP_1XX_RESPONSE_STATUS (Continue|Switching Protocols|Processing)
+HTTP_2XX_RESPONSE_STATUS (OK|Created|Accepted|Non-Authoritative Information|No Content|Reset Content|Partial Content|Multi-Status|Already Reported|IM Used)
+HTTP_3XX_RESPONSE_STATUS (Multiple Choices|Moved Permanently|Found|See Other|Not Modified|Use Proxy|Switch Proxy|Temporary Redirect|Permanent Redirect)
+HTTP_4XX_RESPONSE_STATUS (Bad Request|Unauthorized|Payment Required|Forbidden|Not Found|Method Not Allowed|Not Acceptable|Proxy Authentication Required|Request Timeout|Conflict|Gone|Length Required|Precondition Failed|Request Entity Too Large|Request-URI Too Long|Unsupported Media Type|Requested Range Not Satisfiable|Expectation Failed|Authentication Timeout|Method Failure|Misdirected Request|Unprocessable Entity|Locked|Failed Dependency|Upgrade Required|Precondition Required|Too Many Requests|Request Fields Too Large|Login Timeout|No Response|Retry With|Blocked by Windows Parental Controls|Unavailable For Legal Reasons|Redirect|Request Header Too Large|Cert Error|No Cert|HTTP to HTTPS|Token expired/Invalid|Client Closed Request|Token required)
+HTTP_5XX_RESPONSE_STATUS (Internal Server Error|Not Implemented|Bad Gateway|Service Unavailable|Gateway Timeout|HTTP Version Not Supported|Variant Also Negotiates|Insufficient Storage|Loop Detected|Bandwidth Limit Exceeded|Not Extended|Network Authentication Required|Network read timeout error|Network connect timeout error)
+HTTP_RESPONSE_CODES (%{HTTP_1XX_RESPONSE_STATUS}|%{HTTP_2XX_RESPONSE_STATUS}|%{HTTP_3XX_RESPONSE_STATUS}|%{HTTP_4XX_RESPONSE_STATUS}|%{HTTP_5XX_RESPONSE_STATUS})
+METHOD_NAME [A-Za-z0-9_]+
+SESSID [a-f0-9]+
+RELATIVE_PATH (?>(?>[\w/_%!$@:.,-]+|\\.)*)+
+RUBY_ARRAY \[([^\]]*)*\]
+RUBY_HASH {.*}
