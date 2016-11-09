@@ -1,0 +1,7 @@
+MYDATE %{MONTHNUM}/%{MONTHDAY} %{HOUR}:%{MINUTE}:%{SECOND}
+CRONENTRYCOMBINED %{CRONENTRY}|%{DEPRECATIONNOTICE}|%{ESQUERYMETRICS}|%{MAILALERT}|%{NOREPORTALERT}
+CRONENTRY         \[%{MYDATE:date}\] %{LOGLEVEL:log_level} -- Alert: '%{GREEDYDATA:alert_title}' \(#%{NUMBER:alert_code}\), to <%{GREEDYDATA:user_name} <%{DATA:user_email}>>
+ESQUERYMETRICS    \[%{MYDATE:date}\] %{LOGLEVEL:log_level} -- \[es-query-metrics\] type=%{DATA:type} es_api_call=%{DATA:es_api_call} query_execution=%{DATA:query_execution} hits=%{DATA:hits}
+MAILALERT         \[%{MYDATE:date}\] %{LOGLEVEL:log_level} -- Mail sent for alert '%{DATA:alert_title}' \(#%{NUMBER:alert_code}\)
+NOREPORTALERT     \[%{MYDATE:date}\] %{LOGLEVEL:log_level} -- No reports for '%{DATA:alert_title}' \(#%{NUMBER:alert_code}\)
+DEPRECATIONNOTICE \[DEPRECATION\] %{GREEDYDATA:message}
