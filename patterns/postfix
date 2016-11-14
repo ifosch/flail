@@ -24,10 +24,12 @@ GREEDYDATA_NO_SEMICOLON [^;]*
 
 # smtpd patterns
 POSTFIX_SMTPD_PROCESS postfix/smtpd\[%{NUMBER:pid}\]:
+POSTFIX_SMTPD_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_SMTPD_PROCESS}
 POSTFIX_SMTPD_EVENT (|dis)connect
-POSTFIX_SMTPD_CONNECT %{POSTFIX_SMTPD_PROCESS} %{POSTFIX_SMTPD_EVENT:postfix_event} from %{POSTFIX_CLIENT_INFO}
-POSTFIX_SMTPD_LOSTCONN %{POSTFIX_LOSTCONN:postfix_event}( after %{POSTFIX_SMTP_STAGE:postfix_smtp_stage}( \(%{INT} bytes\))?)? from %{POSTFIX_CLIENT_INFO}(: %{GREEDYDATA:postfix_smtpd_lostconn_reason})?
-POSTFIX_SMTPD_NOQUEUE NOQUEUE: %{POSTFIX_ACTION:postfix_action}: %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} from %{POSTFIX_CLIENT_INFO}:( %{POSTFIX_STATUS_CODE:postfix_status_code} %{POSTFIX_STATUS_CODE_ENHANCED:postfix_status_code_enhanced})?( <%{DATA:postfix_status_data}>:)? (%{POSTFIX_DNSBL_MESSAGE}|%{GREEDYDATA:postfix_status_message};) (from=<%{DATA:postfix_sender}> to=<%{DATA:postfix_recipient}> %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data})
+POSTFIX_SMTPD_CONNECT %{POSTFIX_SMTPD_PREFIX} %{POSTFIX_SMTPD_EVENT:postfix_event} from %{POSTFIX_CLIENT_INFO}
+POSTFIX_SMTPD_LOSTCONN %{POSTFIX_SMTPD_PREFIX} %{POSTFIX_LOSTCONN:postfix_event}( after %{POSTFIX_SMTP_STAGE:postfix_smtp_stage}( \(%{INT} bytes\))?)? from %{POSTFIX_CLIENT_INFO}(: %{GREEDYDATA:postfix_smtpd_lostconn_reason})?
+POSTFIX_SMTPD_NOQUEUE NOQUEUE: %{POSTFIX_SMTPD_PREFIX} %{POSTFIX_ACTION:postfix_action}: %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} from %{POSTFIX_CLIENT_INFO}:( %{POSTFIX_STATUS_CODE:postfix_status_code} %{POSTFIX_STATUS_CODE_ENHANCED:postfix_status_code_enhanced})?( <%{DATA:postfix_status_data}>:)? (%{POSTFIX_DNSBL_MESSAGE}|%{GREEDYDATA:postfix_status_message};) (from=<%{DATA:postfix_sender}> to=<%{DATA:postfix_recipient}> %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data})
+POSTFIX_SMTPD_WARNING %{POSTFIX_SMTPD_PREFIX} %{POSTFIX_WARNING}
 
 # Not seen these SMTPD messages
 POSTFIX_SMTPD_PIPELINING improper command pipelining after %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} from %{POSTFIX_CLIENT_INFO}: %{GREEDYDATA:postfix_improper_pipelining_data}
@@ -38,16 +40,18 @@ POSTFIX_CLEANUP_MILTER %{POSTFIX_QUEUEID:postfix_queueid}: milter-%{POSTFIX_ACTI
 
 # qmgr patterns
 POSTFIX_QMGR_PROCESS postfix/qmgr\[%{NUMBER:pid}\]:
-POSTFIX_QMGR_REMOVED %{POSTFIX_QMGR_PROCESS} %{POSTFIX_QUEUEID:postfix_queueid}: removed
-POSTFIX_QMGR_ACTIVE %{POSTFIX_QMGR_PROCESS} %{POSTFIX_QUEUEID:postfix_queueid}: (from=<%{DATA:postfix_sender}>, size=%{NUMBER:postfix_size}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}) \(queue active\)
-POSTFIX_QMGR_EXPIRED %{POSTFIX_QMGR_PROCESS} %{POSTFIX_QUEUEID:postfix_queueid}: from=<%{DATA:postfix_sender}>, status=%{WORD:postfix_status}, returned to sender
+POSTFIX_QMGR_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_QMGR_PROCESS}
+POSTFIX_QMGR_REMOVED %{POSTFIX_QMGR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: removed
+POSTFIX_QMGR_ACTIVE %{POSTFIX_QMGR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: (from=<%{DATA:postfix_sender}>, size=%{NUMBER:postfix_size}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}) \(queue active\)
+POSTFIX_QMGR_EXPIRED %{POSTFIX_QMGR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: from=<%{DATA:postfix_sender}>, status=%{WORD:postfix_status}, returned to sender
 
 # pipe patterns
 POSTFIX_PIPE_ANY %{POSTFIX_QUEUEID:postfix_queueid}: %{GREEDYDATA:postfix_keyvalue_data}, status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_pipe_response}\)
 
 # error patterns
 POSTFIX_ERROR_PROCESS postfix/error\[%{NUMBER:pid}\]:
-POSTFIX_ERROR_ANY %{POSTFIX_ERROR_PROCESS} %{POSTFIX_QUEUEID:postfix_queueid}: (to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}), status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
+POSTFIX_ERROR_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_ERROR_PROCESS}
+POSTFIX_ERROR_ANY %{POSTFIX_ERROR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: (to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}), status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
 
 # discard patterns
 POSTFIX_DISCARD_ANY %{POSTFIX_QUEUEID:postfix_queueid}: %{GREEDYDATA:postfix_keyvalue_data} status=%{WORD:postfix_status} %{GREEDYDATA}
@@ -80,34 +84,44 @@ POSTFIX_ANVIL_CONN_COUNT statistics: max connection count %{NUMBER:postfix_anvil
 
 # smtp patterns
 POSTFIX_SMTP_PROCESS postfix/smtp\[%{NUMBER:pid}\]:
-POSTFIX_SMTP_DELIVERY %{POSTFIX_KEYVALUE} status=%{WORD:postfix_status}( \(%{GREEDYDATA:postfix_smtp_response}\))?
-POSTFIX_SMTP_CONNERR %{POSTFIX_SMTP_PROCESS} connect to %{POSTFIX_RELAY_INFO}: %{GREEDYDATA:postfix_smtp_response}
-POSTFIX_SMTP_LOSTCONN %{POSTFIX_QUEUEID:postfix_queueid}: %{POSTFIX_LOSTCONN:postfix_smtp_lostconn_data} with %{POSTFIX_RELAY_INFO}( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
-POSTFIX_SMTP_TIMEOUT %{POSTFIX_QUEUEID:postfix_queueid}: conversation with %{POSTFIX_RELAY_INFO} timed out( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
-POSTFIX_SMTP_RELAYERR %{POSTFIX_QUEUEID:postfix_queueid}: host %{POSTFIX_RELAY_INFO} said: %{GREEDYDATA:postfix_smtp_response} \(in reply to %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} command\)
-POSTFIX_SMTP_REFUSED %{POSTFIX_SMTP_PROCESS} %{POSTFIX_QUEUEID:postfix_queueid}: host %{IPORHOST:postfix_relay_hostname}\[%{IPORHOST:postfix_relay_ip}\] refused to talk to me: %{GREEDYDATA:postfix_smtp_response}
+POSTFIX_SMTP_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_SMTP_PROCESS}
+POSTFIX_SMTP_DELIVERY %{POSTFIX_SMTP_PREFIX} %{POSTFIX_SMTP_PROCESS} %{POSTFIX_KEYVALUE} status=%{WORD:postfix_status}( \(%{GREEDYDATA:postfix_smtp_response}\))?
+POSTFIX_SMTP_CONNERR %{POSTFIX_SMTP_PREFIX} connect to %{POSTFIX_RELAY_INFO}: %{GREEDYDATA:postfix_smtp_response}
+POSTFIX_SMTP_LOSTCONN %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: %{POSTFIX_LOSTCONN:postfix_smtp_lostconn_data} with %{POSTFIX_RELAY_INFO}( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
+POSTFIX_SMTP_TIMEOUT %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: conversation with %{POSTFIX_RELAY_INFO} timed out( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
+POSTFIX_SMTP_RELAYERR %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: host %{POSTFIX_RELAY_INFO} said: %{GREEDYDATA:postfix_smtp_response} \(in reply to %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} command\)
+POSTFIX_SMTP_REFUSED %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: host %{IPORHOST:postfix_relay_hostname}\[%{IPORHOST:postfix_relay_ip}\] refused to talk to me: %{GREEDYDATA:postfix_smtp_response}
+POSTFIX_SMTP_WARNING %{POSTFIX_SMTP_PREFIX} %{POSTFIX_WARNING}
 
 # master patterns
 POSTFIX_MASTER_START (daemon started|reload) -- version %{DATA:postfix_version}, configuration %{PATH:postfix_config_path}
 POSTFIX_MASTER_EXIT terminating on signal %{INT:postfix_termination_signal}
 
 # bounce patterns
-POSTFIX_BOUNCE_NOTIFICATION %{POSTFIX_QUEUEID:postfix_queueid}: sender (non-delivery|delivery status|delay) notification: %{POSTFIX_QUEUEID:postfix_bounce_queueid}
+POSTFIX_BOUNCE_NOTIFICATION %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} postfix/bounce\[%{NUMBER:pid}\] %{POSTFIX_QUEUEID:postfix_queueid}: sender (non-delivery|delivery status|delay) notification: %{POSTFIX_QUEUEID:postfix_bounce_queueid}
 
 # scache patterns
 POSTFIX_SCACHE_LOOKUPS statistics: (address|domain) lookup hits=%{INT:postfix_scache_hits} miss=%{INT:postfix_scache_miss} success=%{INT:postfix_scache_success}%
 POSTFIX_SCACHE_SIMULTANEOUS statistics: max simultaneous domains=%{INT:postfix_scache_domains} addresses=%{INT:postfix_scache_addresses} connection=%{INT:postfix_scache_connection}
 POSTFIX_SCACHE_TIMESTAMP statistics: start interval %{SYSLOGTIMESTAMP:postfix_scache_timestamp}
 
+# Opendkim patterns
+OPENDKIM_PROCESS opendkim\[%{NUMBER:pid}\]:
+OPENDKIM_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{OPENDKIM_PROCESS}
+POSTFIX_OPENDKIM_FILEERROR %{OPENDKIM_PREFIX} %{DATA:path}: fopen\(\): Permission denied
+POSTFIX_OPENDKIM_ERROR %{OPENDKIM_PREFIX} %{GREEDYDATA:opendkim_error}
+POSTFIX_OPENDKIM %{POSTFIX_OPENDKIM_ERROR}|POSTFIX_OPENDKIM_FILEERROR
+
+
 # aggregate all patterns
-POSTFIX_SMTPD %{POSTFIX_SMTPD_CONNECT}|%{POSTFIX_SMTPD_LOSTCONN}|%{POSTFIX_SMTPD_NOQUEUE}|%{POSTFIX_SMTPD_PIPELINING}|%{POSTFIX_TLSCONN}|%{POSTFIX_WARNING}|%{POSTFIX_SMTPD_PROXY}|%{POSTFIX_KEYVALUE}
+POSTFIX_SMTPD %{POSTFIX_SMTPD_CONNECT}|%{POSTFIX_SMTPD_LOSTCONN}|%{POSTFIX_SMTPD_NOQUEUE}|%{POSTFIX_SMTPD_PIPELINING}|%{POSTFIX_TLSCONN}|%{POSTFIX_SMTPD_WARNING}|%{POSTFIX_SMTPD_PROXY}|%{POSTFIX_KEYVALUE}
 POSTFIX_CLEANUP %{POSTFIX_CLEANUP_MILTER}|%{POSTFIX_WARNING}|%{POSTFIX_KEYVALUE}
 POSTFIX_QMGR %{POSTFIX_QMGR_REMOVED}|%{POSTFIX_QMGR_ACTIVE}|%{POSTFIX_QMGR_EXPIRED}|%{POSTFIX_WARNING}
 POSTFIX_PIPE %{POSTFIX_PIPE_ANY}
 POSTFIX_POSTSCREEN %{POSTFIX_PS_CONNECT}|%{POSTFIX_PS_ACCESS}|%{POSTFIX_PS_NOQUEUE}|%{POSTFIX_PS_TOOBUSY}|%{POSTFIX_PS_CACHE}|%{POSTFIX_PS_DNSBL}|%{POSTFIX_PS_VIOLATIONS}|%{POSTFIX_WARNING}
 POSTFIX_DNSBLOG %{POSTFIX_DNSBLOG_LISTING}|%{POSTFIX_WARNING}
 POSTFIX_ANVIL %{POSTFIX_ANVIL_CONN_RATE}|%{POSTFIX_ANVIL_CONN_CACHE}|%{POSTFIX_ANVIL_CONN_COUNT}
-POSTFIX_SMTP %{POSTFIX_SMTP_DELIVERY}|%{POSTFIX_SMTP_CONNERR}|%{POSTFIX_SMTP_LOSTCONN}|%{POSTFIX_SMTP_TIMEOUT}|%{POSTFIX_SMTP_RELAYERR}|%{POSTFIX_TLSCONN}|%{POSTFIX_WARNING}|%{POSTFIX_SMTP_REFUSED}
+POSTFIX_SMTP %{POSTFIX_SMTP_DELIVERY}|%{POSTFIX_SMTP_CONNERR}|%{POSTFIX_SMTP_LOSTCONN}|%{POSTFIX_SMTP_TIMEOUT}|%{POSTFIX_SMTP_RELAYERR}|%{POSTFIX_TLSCONN}|%{POSTFIX_SMTP_WARNING}|%{POSTFIX_SMTP_REFUSED}
 POSTFIX_DISCARD %{POSTFIX_DISCARD_ANY}|%{POSTFIX_WARNING}
 POSTFIX_LMTP %{POSTFIX_SMTP}
 POSTFIX_PICKUP %{POSTFIX_KEYVALUE}
@@ -123,4 +137,4 @@ POSTFIX_LOCAL %{POSTFIX_KEYVALUE}
 POSTFIX_VIRTUAL %{POSTFIX_SMTP_DELIVERY}
 POSTFIX_ERROR %{POSTFIX_ERROR_ANY}
 POSTFIX_POSTSUPER %{POSTFIX_POSTSUPER_ACTION}|%{POSTFIX_POSTSUPER_SUMMARY}
-POSTFIX_MAILLOG %{POSTFIX_QMGR}|%{POSTFIX_SMTP}|%{POSTFIX_SMTPD}|%{POSTFIX_ERROR}|%{POSTFIX_SCACHE}|%{POSTFIX_CLEANUP}
+POSTFIX_MAILLOG %{POSTFIX_QMGR}|%{POSTFIX_SMTP}|%{POSTFIX_SMTPD}|%{POSTFIX_ERROR}|%{POSTFIX_SCACHE}|%{POSTFIX_CLEANUP}|%{POSTFIX_OPENDKIM}
