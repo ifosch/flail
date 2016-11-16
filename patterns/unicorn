@@ -1,0 +1,19 @@
+# General patterns
+UNICORN_PREFIX %{WORD}, \[%{TIMESTAMP_ISO8601:timestamp} #%{NUMBER}\].* %{LOGLEVEL:loglevel} -- :
+
+# Master related messages
+UNICORN_MASTER_STARTUP %{UNICORN_PREFIX} master process %{WORD:worker_status}
+UNICORN_MASTER_SHUTDOWN %{UNICORN_PREFIX} master %{WORD:worker_status}
+UNICORN_STARTUP_LISTEN %{UNICORN_PREFIX} listening on addr=%{IP:listen_address}:%{NUMBER:port} fd=%{NUMBER}
+UNICORN_STARTUP_GEMS   %{UNICORN_PREFIX} Refreshing Gem list
+UNICORN_MASTER_MESSAGE %{UNICORN_MASTER_STARTUP}|%{UNICORN_MASTER_SHUTDOWN}|%{UNICORN_STARTUP_LISTEN}|%{UNICORN_STARTUP_GEMS}
+
+# Worker related messages
+UNICORN_WORKER_KILL    %{UNICORN_PREFIX} %{WORD:action} #<Process::Status: pid %{NUMBER:pid} %{GREEDYDATA:message}> worker=%{NUMBER:worker_id}
+UNICORN_WORKER_REAP    %{UNICORN_PREFIX} %{WORD:worker_status} #<Process::Status: pid %{NUMBER:pid} %{GREEDYDATA:message}> worker=%{NUMBER:worker_id}
+UNICORN_WORKER_STATUS  %{UNICORN_PREFIX} worker=%{NUMBER:worker_id} %{WORD:worker_status}
+UNICORN_WORKER_TIMEOUT %{UNICORN_PREFIX} worker=%{NUMBER:worker_id} PID:%{NUMBER:pid} %{GREEDYDATA:message}
+UNICORN_WORKER_MESSAGE %{UNICORN_WORKER_KILL}|%{UNICORN_WORKER_REAP}|%{UNICORN_WORKER_STATUS}|%{UNICORN_WORKER_TIMEOUT}
+
+# Aggregations
+UNICORN_MESSAGE %{UNICORN_WORKER_MESSAGE}|%{UNICORN_MASTER_MESSAGE}
