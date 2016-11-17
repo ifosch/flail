@@ -1,5 +1,5 @@
 # General patterns
-UNICORN_PREFIX %{WORD}, \[%{TIMESTAMP_ISO8601:timestamp} #%{NUMBER}\].* %{LOGLEVEL:loglevel} -- :
+UNICORN_PREFIX %{WORD}, \[%{GREEDYDATA:timestamp} #%{NUMBER}\].* %{LOGLEVEL:loglevel} -- :
 
 # Master related messages
 UNICORN_MASTER_STARTUP %{UNICORN_PREFIX} master process %{WORD:worker_status}
