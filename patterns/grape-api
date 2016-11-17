@@ -12,7 +12,7 @@ SIDEKIQ_JOB_LOG %{SIDEKIQ_JOB_INITIAL}( %{SIDEKIQ_JOB_START_DONE} | )%{RUBY_LOGL
 DB_LOG %{LOG_LEVEL_CHAR}, [%{TIMESTAMP_NO_TZ} %{PID}] %{LOG_LEVEL_WORD:log_level} -- : %{GREEDY_DATA:db_query_log}
 
 # grape-api API request related messages
-GRAPE_API_REQUEST \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- %{NUMBER:http_status_code} -- %{GREEDYDATA:request_id} -- total=%{NUMBER:time_total} db=%{NUMBER:time_db} -- %{WORD:verb} %{GREEDYDATA:endpoint} params=%{GREEDYDATA:params} --
+GRAPE_API_REQUEST \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- %{NUMBER:http_status_code} -- (%{GREEDYDATA:request_id})? -- total=(%{NUMBER:time_total})? db=(%{NUMBER:time_db})? -- %{WORD:verb} %{GREEDYDATA:endpoint} params=%{GREEDYDATA:params} --
 
 # grape-api email related messages
 GRAPE_API_NOTIFICATION_SENDING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[email\] to=%{DATA:notification_recipient},forgot_password@devex.zendesk.com from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments}
