@@ -22,14 +22,4 @@ GRAPE_API_ES_QUERY_METRICS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \
 GRAPE_API_ES_QUERY \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- %{WORD:verb} %{GREEDYDATA:es_query} \[status:%{NUMBER:http_status_code}, request:%{NUMBER:time_request}s, query:%{NUMBER:time_query}s\]
 GRAPE_API_ES %{GRAPE_API_ES_QUERY}|%{GRAPE_API_ES_QUERY_METRICS}
 
-# grape-api alert related messages
-GRAPE_API_ALERTS_METRICS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[alert-metrics\] type=%{GREEDYDATA:message_type} failed=%{NUMBER:failed_alerts} sent=%{NUMBER:sent_alerts} not_sent=%{NUMBER:not_sent_alerts}
-GRAPE_API_ALERTS_PROCESS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- processed %{NUMBER:alerts_processed} alerts in %{NUMBER:alerts_processing_time} seconds
-GRAPE_API_ALERTS_MAIL_SENT \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- Mail sent for alert 'Business Alert: %{GREEDYDATA:es_query}' \(#%{NUMBER:alert_id}\)
-GRAPE_API_ALERTS_ALERT \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- Alert: 'Business Alert: %{GREEDYDATA:es_query}' \(#%{NUMBER:alert_id}\), to <%{GREEDYDATA:alert_user_name} <%{GREEDYDATA:alert_user_mail}>>
-GRAPE_API_ALERTS_NO_REPORTS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- No reports for 'Business Alert: %{GREEDYDATA:es_query}' \(#%{NUMBER:alert_id}\)
-GRAPE_API_ALERTS_GENERIC \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- %{GREEDYDATA:message_text}
-GRAPE_API_ALERTS_DEPRECATION \[DEPRECATION\] %{GREEDYDATA:deprecation_message}
-GRAPE_API_ALERTS %{GRAPE_API_ALERTS_METRICS}|%{GRAPE_API_ALERTS_PROCESS}|%{GRAPE_API_ALERTS_DEPRECATION}|%{GRAPE_API_ALERTS_MAIL_SENT}|%{GRAPE_API_ALERTS_ALERT}|%{GRAPE_API_ALERTS_NO_REPORTS}|%{GRAPE_API_ALERTS_GENERIC}
-
-GRAPE_API %{GRAPE_API_REQUEST}|%{GRAPE_API_NOTIFICATION_SENDING}|%{GRAPE_API_ES}|%{GRAPE_API_ALERTS}
+GRAPE_API %{GRAPE_API_REQUEST}|%{GRAPE_API_NOTIFICATION_SENDING}|%{GRAPE_API_ES}
