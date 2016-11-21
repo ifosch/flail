@@ -2,4 +2,4 @@ NGUSERNAME [a-zA-Z\.\@\-\+_%]+
 NGUSER %{NGUSERNAME}
 NGINXACCESS (%{NGINXACCESSDIRECT}|%{NGINXACCESSUPSTREAM})
 NGINXACCESSDIRECT %{IPORHOST:clientip} %{NGUSER:ident} %{NGUSER:auth} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response:int} (?:%{NUMBER:bytes:int}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) %{QS:agent}
-NGINXACCESSUPSTREAM %{IPORHOST:clientip} - %{USERNAME:remote_user} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:response:int} (?:%{NUMBER:bytes:int}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) %{QS:agent} %{NUMBER:request_time:float} (?:%{NUMBER:upstream_response_time:float}|-)
+NGINXACCESSUPSTREAM %{IPORHOST:clientip} - %{USERNAME:remote_user} \[%{HTTPDATE:timestamp}\] "%{WORD:verb} %{URIPATHPARAM:request} HTTP/%{NUMBER:httpversion}" %{NUMBER:http_status_code:int} (?:%{NUMBER:bytes:int}|-) (?:"(?:%{URI:referrer}|-)"|%{QS:referrer}) %{QS:agent} %{NUMBER:request_time:float} (?:%{NUMBER:upstream_response_time:float}|-)
