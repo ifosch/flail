@@ -51,7 +51,7 @@ POSTFIX_PIPE_ANY %{POSTFIX_QUEUEID:postfix_queueid}: %{GREEDYDATA:postfix_keyval
 # error patterns
 POSTFIX_ERROR_PROCESS postfix/error\[%{NUMBER:pid}\]:
 POSTFIX_ERROR_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_ERROR_PROCESS}
-POSTFIX_ERROR_ANY %{POSTFIX_ERROR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: (to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}), status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
+POSTFIX_ERROR_ANY %{POSTFIX_ERROR_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: (to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay:float}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}|%{GREEDYDATA:postfix_keyvalue_data}), status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
 
 # discard patterns
 POSTFIX_DISCARD_ANY %{POSTFIX_QUEUEID:postfix_queueid}: %{GREEDYDATA:postfix_keyvalue_data} status=%{WORD:postfix_status} %{GREEDYDATA}
@@ -87,13 +87,13 @@ POSTFIX_ANVIL_CONN_COUNT %{POSTFIX_ANVIL_PREFIX} statistics: max connection coun
 # smtp patterns
 POSTFIX_SMTP_PROCESS postfix/smtp\[%{NUMBER:pid}\]:
 POSTFIX_SMTP_PREFIX %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} %{POSTFIX_SMTP_PROCESS}
-POSTFIX_SMTP_DELIVERY %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: to=<%{DATA:postfix_recipient}>, relay=<%{POSTFIX_RELAY_INFO}>, delay=%{NUMBER:postfix_delay}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}, status=%{WORD:postfix_status}( \(%{GREEDYDATA:postfix_smtp_response}\))?
+POSTFIX_SMTP_DELIVERY %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: to=<%{DATA:postfix_recipient}>, relay=<%{POSTFIX_RELAY_INFO}>, delay=%{NUMBER:postfix_delay:float}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}, status=%{WORD:postfix_status}( \(%{GREEDYDATA:postfix_smtp_response}\))?
 POSTFIX_SMTP_CONNERR %{POSTFIX_SMTP_PREFIX} connect to %{POSTFIX_RELAY_INFO}: %{GREEDYDATA:postfix_smtp_response}
 POSTFIX_SMTP_LOSTCONN %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: %{POSTFIX_LOSTCONN:postfix_smtp_lostconn_data} with %{POSTFIX_RELAY_INFO}( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
 POSTFIX_SMTP_TIMEOUT %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: conversation with %{POSTFIX_RELAY_INFO} timed out( while %{POSTFIX_LOSTCONN_REASONS:postfix_smtp_lostconn_reason})?
 POSTFIX_SMTP_RELAYERR %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: host %{POSTFIX_RELAY_INFO} said: %{GREEDYDATA:postfix_smtp_response} \(in reply to %{POSTFIX_SMTP_STAGE:postfix_smtp_stage} command\)
 POSTFIX_SMTP_REFUSED %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: host %{IPORHOST:postfix_relay_hostname}\[%{IPORHOST:postfix_relay_ip}\] refused to talk to me: %{GREEDYDATA:postfix_smtp_response}
-POSTFIX_SMTP_BOUNCED %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}, status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
+POSTFIX_SMTP_BOUNCED %{POSTFIX_SMTP_PREFIX} %{POSTFIX_QUEUEID:postfix_queueid}: to=<%{DATA:postfix_recipient}>, relay=%{DATA:postfix_relay}, delay=%{NUMBER:postfix_delay:float}, delays=%{POSTFIX_DELAYS}, %{GREEDYDATA:postfix_keyvalue_data}, status=%{WORD:postfix_status} \(%{GREEDYDATA:postfix_error_response}\)
 POSTFIX_SMTP_WARNING %{POSTFIX_SMTP_PREFIX} %{POSTFIX_WARNING}
 
 
@@ -105,8 +105,8 @@ POSTFIX_MASTER_EXIT terminating on signal %{INT:postfix_termination_signal}
 POSTFIX_BOUNCE_NOTIFICATION %{SYSLOGTIMESTAMP:timestamp} %{WORD:host} postfix/bounce\[%{NUMBER:pid}\] %{POSTFIX_QUEUEID:postfix_queueid}: sender (non-delivery|delivery status|delay) notification: %{POSTFIX_QUEUEID:postfix_bounce_queueid}
 
 # scache patterns
-POSTFIX_SCACHE_LOOKUPS statistics: (address|domain) lookup hits=%{INT:postfix_scache_hits} miss=%{INT:postfix_scache_miss} success=%{INT:postfix_scache_success}%
-POSTFIX_SCACHE_SIMULTANEOUS statistics: max simultaneous domains=%{INT:postfix_scache_domains} addresses=%{INT:postfix_scache_addresses} connection=%{INT:postfix_scache_connection}
+POSTFIX_SCACHE_LOOKUPS statistics: (address|domain) lookup hits=%{INT:postfix_scache_hits:int} miss=%{INT:postfix_scache_miss:int} success=%{INT:postfix_scache_success:int}%
+POSTFIX_SCACHE_SIMULTANEOUS statistics: max simultaneous domains=%{INT:postfix_scache_domains:int} addresses=%{INT:postfix_scache_addresses:int} connection=%{INT:postfix_scache_connection:int}
 POSTFIX_SCACHE_TIMESTAMP statistics: start interval %{SYSLOGTIMESTAMP:postfix_scache_timestamp}
 
 # Opendkim patterns
