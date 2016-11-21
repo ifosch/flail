@@ -8,7 +8,7 @@ RAILS_PROCESSING_AS (%{RAILS_PROCESSING_AS_GENERIC}|%{RAILS_PROCESSING_AS_SESSIO
 RAILS_PROCESSING \W*Processing by %{RAILS_CONTROLLER} as %{RAILS_PROCESSING_AS}
 RAILS_SESSION_COOKIE \W*generate_session_cookie\W*%{SESSID:session_id}
 RAILS_SESSION_NOT_AUTHENTICATED \W*NOT AUTHENTICATED
-RAILS_SESSION_AUTHENTICATED \W*AUTHENTICATED: session_permission: {"user_id"=>%{NUMBER:user_id}, "dfa_id"=>%{NUMBER:dfa_id}, "first_name"=>"(?<first_name>[^"]*)", "last_name"=>"(?<last_name>[^"]*)", "user_packages"=>%{RUBY_ARRAY:user_packages}} ON SESSION: session\[:current_user\]: %{NUMBER}
+RAILS_SESSION_AUTHENTICATED \W*AUTHENTICATED: session_permission: {"user_id"=>%{NUMBER:user_id:int}, "dfa_id"=>%{NUMBER:dfa_id}, "first_name"=>"(?<first_name>[^"]*)", "last_name"=>"(?<last_name>[^"]*)", "user_packages"=>%{RUBY_ARRAY:user_packages}} ON SESSION: session\[:current_user\]: %{NUMBER}
 RAILS_SESSION %{RAILS_SESSION_COOKIE}?(%{RAILS_SESSION_NOT_AUTHENTICATED}|%{RAILS_SESSION_AUTHENTICATED}|)
 RAILS_RENDER \W*Rendered %{RELATIVE_PATH}( within %{RELATIVE_PATH})? \(%{NUMBER}ms\)
 RAILS_RENDERS %{RAILS_RENDER}*
