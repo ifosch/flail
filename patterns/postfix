@@ -13,7 +13,7 @@ POSTFIX_TIME_UNIT %{NUMBER}[smhd]
 POSTFIX_KEYVALUE %{POSTFIX_QUEUEID:postfix_queueid}: %{GREEDYDATA:postfix_keyvalue_data}
 POSTFIX_WARNING (%{POSTFIX_QUEUEID:postfix_queueid}: )?(warning|fatal): %{GREEDYDATA_NO_SEMICOLON:postfix_warning}(; %{GREEDYDATA:postfix_keyvalue_data})?
 POSTFIX_TLSCONN (Anonymous|Trusted|Untrusted|Verified) TLS connection established (to %{POSTFIX_RELAY_INFO}|from %{POSTFIX_CLIENT_INFO}): %{DATA:postfix_tls_version} with cipher %{DATA:postfix_tls_cipher} \(%{DATA:postfix_tls_cipher_size} bits\)
-POSTFIX_DELAYS %{NUMBER:postfix_delay_before_qmgr}/%{NUMBER:postfix_delay_in_qmgr}/%{NUMBER:postfix_delay_conn_setup}/%{NUMBER:postfix_delay_transmission}
+POSTFIX_DELAYS %{NUMBER:postfix_delay_before_qmgr:float}/%{NUMBER:postfix_delay_in_qmgr:float}/%{NUMBER:postfix_delay_conn_setup:float}/%{NUMBER:postfix_delay_transmission:float}
 POSTFIX_LOSTCONN (lost connection|timeout|SSL_accept error)
 POSTFIX_LOSTCONN_REASONS (receiving the initial server greeting|sending message body|sending end of data -- message may be sent more than once)
 POSTFIX_PROXY_MESSAGE (%{POSTFIX_STATUS_CODE:postfix_proxy_status_code} )?(%{POSTFIX_STATUS_CODE_ENHANCED:postfix_proxy_status_code_enhanced})?.*
