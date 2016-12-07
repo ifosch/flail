@@ -18,7 +18,7 @@ GRAPE_API_REQUEST \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- status=%{N
 GRAPE_API_DEPRECATION_WARNING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- warning="%{DATA:warning_warning}" type="%{DATA:warning_type}" in_file="%{GREEDYDATA:warning_in_file}" method="%{DATA:warning_method}" caller_file="%{GREEDYDATA:warning_caller_file}" caller_method="%{GREEDYDATA:warning_caller_method}" caller_line=%{NUMBER:warning_caller_line} message="%{GREEDYDATA:warning_message}"
 
 # grape-api email related messages
-GRAPE_API_NOTIFICATION_SENDING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[email\] to=%{DATA:notification_recipient},forgot_password@devex.zendesk.com from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}
+GRAPE_API_NOTIFICATION_SENDING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[email\] to=%{DATA:notification_recipient}(,forgot_password@devex.zendesk.com)? from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}
 
 # grape-api ES related messages
 GRAPE_API_ES_QUERY_METRICS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[es-query-metrics\] type=%{WORD:query_type} es_api_call=%{NUMBER:es_api_call:int} query_creation=%{NUMBER:query_creation:int} query_execution=%{NUMBER:query_execution:int} result_parsing=%{NUMBER:result_parsing:int}
