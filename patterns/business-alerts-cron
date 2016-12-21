@@ -1,4 +1,4 @@
 # grape-api alert related messages
-GRAPE_API_ALERTS_ENTRY \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- context="%{GREEDYDATA:context}" message="%{GREEDYDATA:alert_message}" alert_id=%{NUMBER:alert_id:int} alert_name="%{GREEDYDATA:alert_name}" to="%{DATA:alert_user_mail}" consultant_id=%{NUMBER:consultant_id:int}
+GRAPE_API_ALERTS_ENTRY \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- context="%{GREEDYDATA:context}" message="%{GREEDYDATA:alert_message}" alert_id=%{NUMBER:alert_id:int} alert_name="%{GREEDYDATA:alert_name}" to="%{DATA:alert_user_mail}" consultant_id=%{NUMBER:consultant_id:int}( tgo_count=(%{NUMBER:tgo_count:int})? tgo_ww_count=(%{NUMBER:tgo_ww_count:int})? pipeline_count=(%{NUMBER:pipeline_count:int})? pipeline_ww_count=(%{NUMBER:pipeline_ww_count:int})?)?
 GRAPE_API_ALERTS %{GRAPE_API_ALERTS_ENTRY}
 
