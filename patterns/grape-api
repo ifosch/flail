@@ -15,7 +15,7 @@ DB_LOG %{LOG_LEVEL_CHAR}, [%{TIMESTAMP_NO_TZ} %{PID}] %{LOG_LEVEL_WORD:log_level
 GRAPE_API_PREFIX \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel}
 
 # grape-api API request related messages
-GRAPE_API_REQUEST %{GRAPE_API_PREFIX} -- status=%{NUMBER:http_status_code:int} id=("(%{GREEDYDATA:request_id})?"|%{GREEDYDATA:request_id}) action="%{WORD:verb} %{GREEDYDATA:endpoint}" total=(%{NUMBER:time_total:float})? db=(%{NUMBER:time_db:float})? params=%{GREEDYDATA:params}
+GRAPE_API_REQUEST %{GRAPE_API_PREFIX} -- status=(%{NUMBER:http_status_code:int}|null) id=("%{GREEDYDATA:request_id}"|null)? action="%{WORD:verb} %{GREEDYDATA:endpoint}" total=(%{NUMBER:time_total:float})? db=(%{NUMBER:time_db:float})? params=%{GREEDYDATA:params}
 
 # DEPRECATION messages
 GRAPE_API_DEPRECATION_WARNING %{GRAPE_API_PREFIX} -- warning="%{DATA:warning_warning}" type="%{DATA:warning_type}" in_file="%{GREEDYDATA:warning_in_file}" method="%{DATA:warning_method}" caller_file="%{GREEDYDATA:warning_caller_file}" caller_method="%{GREEDYDATA:warning_caller_method}" caller_line=%{NUMBER:warning_caller_line} message="%{GREEDYDATA:warning_message}"
