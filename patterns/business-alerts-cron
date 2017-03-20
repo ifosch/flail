@@ -1,6 +1,8 @@
 # grape-api alert related messages
 GRAPE_API_ALERTS_PREFIX \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel}
 GRAPE_API_ALERTS_COMMON %{GRAPE_API_ALERTS_PREFIX} -- context="%{GREEDYDATA:context}" message="%{DOUBLEQUOTED:alert_message}" type="%{GREEDYDATA:alert_type}" alert_id=%{NUMBER:alert_id:int}( search_id=%{NUMBER:search_id:int})? alert_name="%{GREEDYDATA:alert_name}" to="%{DATA:alert_user_mail}" consultant_id=%{NUMBER:consultant_id:int}
-GRAPE_API_ALERTS_ENTRY %{GRAPE_API_ALERTS_COMMON}( tgo_count=(%{NUMBER:tgo_count:int})?)?( tgo_worldwide_count=(%{NUMBER:tgo_ww_count:int})?)?( pipelines_count=(%{NUMBER:pipeline_count:int})?)?( pipelines_worldwide_count=(%{NUMBER:pipeline_ww_count:int})?)?( result_count=(%{NUMBER:alert_result_count:int})?)?
-GRAPE_API_ALERTS %{GRAPE_API_ALERTS_ENTRY}
+GRAPE_API_ALERTS_ENTRY %{GRAPE_API_ALERTS_COMMON}( tgo_(count)?=(%{NUMBER:tgo_count:int})?)?( tgo_ww_count=(%{NUMBER:tgo_ww_count:int})?)?( pipeline(_count|s)=(%{NUMBER:pipeline_count:int})?)?( pipelines_ww_count=(%{NUMBER:pipeline_ww_count:int})?)?( result_count=(%{NUMBER:alert_result_count:int})?)?
+
+GRAPE_API_ALERTS_ENTRY_NEW %{GRAPE_API_ALERTS_COMMON}( tgo_count=(%{NUMBER:tgo_count:int})?)?( pipelines_count=(%{NUMBER:pipeline_count:int})?)?( funding_infos_count=(%{NUMBER:funding_infos_count:int})?)?( tgo_worldwide_count=(%{NUMBER:tgo_ww_count:int})?)?( pipelines_worldwide_count=(%{NUMBER:pipeline_ww_count:int})?)?( result_count=(%{NUMBER:alert_result_count:int})?)?
+GRAPE_API_ALERTS %{GRAPE_API_ALERTS_ENTRY}|%{GRAPE_API_ALERTS_ENTRY_NEW}
 
