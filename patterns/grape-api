@@ -7,22 +7,25 @@ SIDEKIQ_JOB_DONE %{NUMBER:secs_to_done:float} sec
 SIDEKIQ_JOB_RETRY Retry %{NUMBER:retry_req} in %{NUMBER:retry_interval} seconds
 SIDEKIQ_JOB_ENQ_RETRY {"retry":%{NUMBER:global_retry},"queue":"%{QUEUE_NAME:queue_enq}","class":"%{RUBY_CLASS:class_name_enq}","args":%{RETRY_ARGS:retry_args_enq},"jid":"%{ID:job_id_enq}","enqueued_at":[0-9.]+,"error_message":"%{ERROR_MESSAGE:error_msg}","error_class":"%{RUBY_CLASS:error_class}","failed_at":"%{TIMESTAMP_ISO8601:failure_timestamp}","retry_count":%{NUMBER:retry_enq},"retried_at":"%{TIMESTAMP_ISO8601:retry_timestamp}"}
 SIDEKIQ_JOB_WARN {"retry"=>([a-z]*|%{NUMBER:global_retry_warn}), "queue"=>"%{QUEUE_NAME:queue_warn}", "class"=>"%{RUBY_CLASS:class_name_warn}", "args"=>%{RETRY_ARGS:retry_args_warn}, "jid"=>"%{ID:job_id_warn}", "enqueued_at"=>[0-9.]+, "error_message"=>"%{ERROR_MESSAGE:error_msg_warn}", "error_class"=>"%{RUBY_CLASS:error_class_warn}", "failed_at"=>"%{TIMESTAMP_ISO8601:failure_timestamp_warn}", "retry_count"=>%{NUMBER:retry_warn}, "retried_at"=>%{TIMESTAMP_ISO8601:retry_timestamp_warn}.*
-SIDEKIQ_JOB_LOG %{SIDEKIQ_JOB_INITIAL}( %{SIDEKIQ_JOB_START_DONE} | )%{RUBY_LOGLEVEL:loglevel}: (%{SIDEKIQ_JOB_STATUS:job_status}($|: %{SIDEKIQ_JOB_DONE}|! %{SIDEKIQ_JOB_RETRY}|: %{SIDEKIQ_JOB_ENQ_RETRY}.*|.*)|%{SIDEKIQ_JOB_WARN}.*|.*)
+SIDEKIQ_JOB_LOG %{SIDEKIQ_JOB_INITIAL}( %{SIDEKIQ_JOB_START_DONE})? %{RUBY_LOGLEVEL:loglevel}: (%{SIDEKIQ_JOB_STATUS:job_status}($|: %{SIDEKIQ_JOB_DONE}|! %{SIDEKIQ_JOB_RETRY}|: %{SIDEKIQ_JOB_ENQ_RETRY}.*|.*)|%{SIDEKIQ_JOB_WARN}.*|.*)
 
 DB_LOG %{LOG_LEVEL_CHAR}, [%{TIMESTAMP_NO_TZ} %{PID}] %{LOG_LEVEL_WORD:log_level} -- : %{GREEDY_DATA:db_query_log}
 
+
+GRAPE_API_PREFIX \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel}
+
 # grape-api API request related messages
-GRAPE_API_REQUEST \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- status=%{NUMBER:http_status_code:int} id=("(%{GREEDYDATA:request_id})?"|%{GREEDYDATA:request_id}) action="%{WORD:verb} %{GREEDYDATA:endpoint}" total=(%{NUMBER:time_total:float})? db=(%{NUMBER:time_db:float})? params=%{GREEDYDATA:params}
+GRAPE_API_REQUEST %{GRAPE_API_PREFIX} -- status=%{NUMBER:http_status_code:int} id=("(%{GREEDYDATA:request_id})?"|%{GREEDYDATA:request_id}) action="%{WORD:verb} %{GREEDYDATA:endpoint}" total=(%{NUMBER:time_total:float})? db=(%{NUMBER:time_db:float})? params=%{GREEDYDATA:params}
 
 # DEPRECATION messages
-GRAPE_API_DEPRECATION_WARNING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- warning="%{DATA:warning_warning}" type="%{DATA:warning_type}" in_file="%{GREEDYDATA:warning_in_file}" method="%{DATA:warning_method}" caller_file="%{GREEDYDATA:warning_caller_file}" caller_method="%{GREEDYDATA:warning_caller_method}" caller_line=%{NUMBER:warning_caller_line} message="%{GREEDYDATA:warning_message}"
+GRAPE_API_DEPRECATION_WARNING %{GRAPE_API_PREFIX} -- warning="%{DATA:warning_warning}" type="%{DATA:warning_type}" in_file="%{GREEDYDATA:warning_in_file}" method="%{DATA:warning_method}" caller_file="%{GREEDYDATA:warning_caller_file}" caller_method="%{GREEDYDATA:warning_caller_method}" caller_line=%{NUMBER:warning_caller_line} message="%{GREEDYDATA:warning_message}"
 
 # grape-api email related messages
-GRAPE_API_NOTIFICATION_SENDING \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[email\] to=%{DATA:notification_recipient}(,forgot_password@devex.zendesk.com)? from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}
+GRAPE_API_NOTIFICATION_SENDING %{GRAPE_API_PREFIX} -- \[email\] to=%{DATA:notification_recipient}(,forgot_password@devex.zendesk.com)? from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}
 
 # grape-api ES related messages
-GRAPE_API_ES_QUERY_METRICS \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- \[es-query-metrics\] type=%{WORD:query_type} es_api_call=%{NUMBER:es_api_call:int} query_complexity=%{NUMBER:query_complexity:int} query_creation=%{NUMBER:query_creation:int} query_execution=%{NUMBER:query_execution:int} result_parsing=%{NUMBER:result_parsing:int} (search_logging=%{NUMBER:search_logging:int} update_bookmarked_searches=%{NUMBER:update_bookmarked_searches:int})?
-GRAPE_API_ES_QUERY \[%{GREEDYDATA:timestamp}\] %{LOGLEVEL:loglevel} -- %{WORD:verb} %{GREEDYDATA:es_query} \[status:%{NUMBER:http_status_code:int}, request:%{NUMBER:time_request:float}s, query:%{NUMBER:time_query:float}s\]
+GRAPE_API_ES_QUERY_METRICS %{GRAPE_API_PREFIX} -- \[es-query-metrics\] type=%{WORD:query_type} es_api_call=%{NUMBER:es_api_call:int} query_complexity=%{NUMBER:query_complexity:int} query_creation=%{NUMBER:query_creation:int} query_execution=%{NUMBER:query_execution:int} result_parsing=%{NUMBER:result_parsing:int} (search_logging=%{NUMBER:search_logging:int} update_bookmarked_searches=%{NUMBER:update_bookmarked_searches:int})?
+GRAPE_API_ES_QUERY %{GRAPE_API_PREFIX} -- %{WORD:verb} %{GREEDYDATA:es_query} \[status:%{NUMBER:http_status_code:int}, request:%{NUMBER:time_request:float}s, query:%{NUMBER:time_query:float}s\]
 GRAPE_API_ES %{GRAPE_API_ES_QUERY}|%{GRAPE_API_ES_QUERY_METRICS}
 
-GRAPE_API %{GRAPE_API_REQUEST}|%{GRAPE_API_NOTIFICATION_SENDING}|%{GRAPE_API_ES}
+GRAPE_API %{GRAPE_API_REQUEST}|%{GRAPE_API_NOTIFICATION_SENDING}|%{GRAPE_API_ES}|%{GRAPE_API_DEPRECATION_WARNING}
