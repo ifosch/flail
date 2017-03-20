@@ -21,7 +21,7 @@ GRAPE_API_REQUEST %{GRAPE_API_PREFIX} -- status=%{NUMBER:http_status_code:int} i
 GRAPE_API_DEPRECATION_WARNING %{GRAPE_API_PREFIX} -- warning="%{DATA:warning_warning}" type="%{DATA:warning_type}" in_file="%{GREEDYDATA:warning_in_file}" method="%{DATA:warning_method}" caller_file="%{GREEDYDATA:warning_caller_file}" caller_method="%{GREEDYDATA:warning_caller_method}" caller_line=%{NUMBER:warning_caller_line} message="%{GREEDYDATA:warning_message}"
 
 # grape-api email related messages
-GRAPE_API_NOTIFICATION_SENDING %{GRAPE_API_PREFIX} -- \[email\] to=%{DATA:notification_recipient}(,forgot_password@devex.zendesk.com)? from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}
+GRAPE_API_NOTIFICATION_SENDING %{GRAPE_API_PREFIX} -- \[email\] to=%{DATA:notification_recipient}(,forgot_password@devex.zendesk.com)? from=%{DATA:notification_sender} reply_to=%{DATA:notification_reply_to} subject='%{GREEDYDATA:notification_subject}' attachments=%{NUMBER:attachments:int}( body_size_in_bytes=%{NUMBER:message_byte_size:int})?
 
 # grape-api ES related messages
 GRAPE_API_ES_QUERY_METRICS %{GRAPE_API_PREFIX} -- \[es-query-metrics\] type=%{WORD:query_type} es_api_call=%{NUMBER:es_api_call:int} query_complexity=%{NUMBER:query_complexity:int} query_creation=%{NUMBER:query_creation:int} query_execution=%{NUMBER:query_execution:int} result_parsing=%{NUMBER:result_parsing:int} (search_logging=%{NUMBER:search_logging:int} update_bookmarked_searches=%{NUMBER:update_bookmarked_searches:int})?
