@@ -1,0 +1,22 @@
+#!/bin/bash
+
+ask_elk_credentials() {
+    echo -n "What's the stack id? "
+    read stack_id
+    export ES_STACK_ID=${stack_id}
+    echo -n "What's the API key? "
+    read api_key
+    export ES_API_KEY=${api_key}
+}
+
+[ -z "${ES_STACK_ID}" -o -z "${ES_API_KEY}" ] || ask_elk_credentials
+
+cd $(dirname $(dirname ${0}))
+
+BASE_URL=https://${ES_STACK_ID}-es.logit.io
+TEMPLATE_URI=_template/filebeat
+MAPPING_PARAMS=apikey=${ES_API_KEY}\&pretty=true
+TEMPLATE_JSON=index_templates/filebeat.json
+curl -kvX PUT "${BASE_URL}/${MAPPING_URI}?${MAPPING_PARAMS}" -d @${TEMPLATE_JSON}
+
+cd - &>/dev/null
