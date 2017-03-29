@@ -1,0 +1,930 @@
+[
+  {
+    "_id": "Cache-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Cache transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[],\"query\":{\"query_string\":{\"query\":\"type: redis\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "DB-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "DB transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[],\"query\":{\"query_string\":{\"query\":\"type: mysql or type: pgsql or type: mongodb\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Default-Search",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Default Search",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status",
+        "query"
+      ]
+    }
+  },
+  {
+    "_id": "Errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":true,\"key\":\"status\",\"value\":\"OK\",\"disabled\":false},\"query\":{\"match\":{\"status\":{\"query\":\"OK\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Filesystem-stats",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Filesystem stats",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"topbeat-*\",\"query\":{\"query_string\":{\"query\":\"type: filesystem\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"filter\":[]}"
+      },
+      "columns": [
+        "_source"
+      ]
+    }
+  },
+  {
+    "_id": "HTTP-errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "HTTP errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":false,\"key\":\"type\",\"value\":\"http\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"http\",\"type\":\"phrase\"}}}},{\"meta\":{\"negate\":true,\"index\":\"packetbeat-*\",\"key\":\"http.code\",\"value\":200,\"disabled\":false},\"query\":{\"match\":{\"http.code\":{\"query\":200,\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "MongoDB-errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "MongoDB errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"mongodb\"},\"query\":{\"match\":{\"type\":{\"query\":\"mongodb\",\"type\":\"phrase\"}}}},{\"meta\":{\"negate\":true,\"index\":\"packetbeat-*\",\"key\":\"status\",\"value\":\"OK\",\"disabled\":false},\"query\":{\"match\":{\"status\":{\"query\":\"OK\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status",
+        "query"
+      ]
+    }
+  },
+  {
+    "_id": "MongoDB-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "MongoDB transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"mongodb\"},\"query\":{\"match\":{\"type\":{\"query\":\"mongodb\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status",
+        "query"
+      ]
+    }
+  },
+  {
+    "_id": "MongoDB-transactions-with-write-concern-0",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "MongoDB transactions with write concern 0",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"mongodb\"},\"query\":{\"match\":{\"type\":{\"query\":\"mongodb\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"request: \\\"writeConcern w 0\\\"\"}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status",
+        "query"
+      ]
+    }
+  },
+  {
+    "_id": "MySQL-errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "MySQL errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"mysql\"},\"query\":{\"match\":{\"type\":{\"query\":\"mysql\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":true,\"key\":\"status\",\"value\":\"OK\",\"disabled\":false},\"query\":{\"match\":{\"status\":{\"query\":\"OK\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "MySQL-Transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "MySQL Transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":false,\"key\":\"type\",\"value\":\"mysql\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"mysql\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Packetbeat-Search",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Packetbeat Search",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      },
+      "columns": [
+        "_source"
+      ]
+    }
+  },
+  {
+    "_id": "PgSQL-errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "PgSQL errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"pgsql\"},\"query\":{\"match\":{\"type\":{\"query\":\"pgsql\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":true,\"key\":\"status\",\"value\":\"OK\",\"disabled\":false},\"query\":{\"match\":{\"status\":{\"query\":\"OK\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "PgSQL-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "PgSQL transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":false,\"key\":\"type\",\"value\":\"pgsql\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"pgsql\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Processes",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Processes",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"topbeat-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"topbeat-*\",\"key\":\"type\",\"value\":\"proc\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"proc\",\"type\":\"phrase\"}}}}]}"
+      },
+      "columns": [
+        "proc.name",
+        "proc.cpu.user_p",
+        "proc.mem.rss_p",
+        "proc.mem.rss",
+        "proc.state",
+        "proc.cpu.start_time"
+      ]
+    }
+  },
+  {
+    "_id": "Proc-stats",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Proc stats",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"topbeat-*\",\"query\":{\"query_string\":{\"query\":\"type: process\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"filter\":[]}"
+      },
+      "columns": [
+        "_source"
+      ]
+    }
+  },
+  {
+    "_id": "RPC-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "RPC transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[],\"query\":{\"query_string\":{\"query\":\"type: thrift\",\"analyze_wildcard\":true}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "System-stats",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "System stats",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"topbeat-*\",\"query\":{\"query_string\":{\"query\":\"type: system\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"filter\":[]}"
+      },
+      "columns": [
+        "_source"
+      ]
+    }
+  },
+  {
+    "_id": "System-wide",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "System wide",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"topbeat-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"fragment_size\":2147483647},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"topbeat-*\",\"key\":\"type\",\"value\":\"system\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"system\",\"type\":\"phrase\"}}}}]}"
+      },
+      "columns": [
+        "beat.name",
+        "cpu.user_p",
+        "cpu.steal",
+        "load.load1",
+        "load.load5",
+        "mem.used",
+        "mem.used_p"
+      ]
+    }
+  },
+  {
+    "_id": "Thrift-errors",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Thrift errors",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"disabled\":false,\"index\":\"packetbeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"thrift\"},\"query\":{\"match\":{\"type\":{\"query\":\"thrift\",\"type\":\"phrase\"}}}},{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":true,\"key\":\"status\",\"value\":\"OK\",\"disabled\":false},\"query\":{\"match\":{\"status\":{\"query\":\"OK\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"type: thrift\"}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Thrift-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Thrift transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":false,\"key\":\"type\",\"value\":\"thrift\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"thrift\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"type: thrift\"}}}"
+      },
+      "columns": [
+        "method",
+        "type",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Web-transactions",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Web transactions",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"packetbeat-*\",\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}}},\"filter\":[{\"meta\":{\"index\":\"packetbeat-*\",\"negate\":false,\"key\":\"type\",\"value\":\"http\",\"disabled\":false},\"query\":{\"match\":{\"type\":{\"query\":\"http\",\"type\":\"phrase\"}}}}],\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}"
+      },
+      "columns": [
+        "type",
+        "method",
+        "path",
+        "responsetime",
+        "status"
+      ]
+    }
+  },
+  {
+    "_id": "Winlogbeat-Search",
+    "_type": "search",
+    "_source": {
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "hits": 0,
+      "description": "",
+      "title": "Windows Event Log Search",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\n  \"index\": \"winlogbeat-*\",\n  \"filter\": [],\n  \"highlight\": {\n    \"pre_tags\": [\n      \"@kibana-highlighted-field@\"\n    ],\n    \"post_tags\": [\n      \"@/kibana-highlighted-field@\"\n    ],\n    \"fields\": {\n      \"*\": {}\n    },\n    \"require_field_match\": false,\n    \"fragment_size\": 2147483647\n  },\n  \"query\": {\n    \"query_string\": {\n      \"query\": \"*\",\n      \"analyze_wildcard\": true\n    }\n  }\n}"
+      },
+      "columns": [
+        "record_number",
+        "log_name",
+        "level",
+        "source_name",
+        "message",
+        "event_id",
+        "user.name"
+      ]
+    }
+  },
+  {
+    "_id": "All-logs",
+    "_type": "search",
+    "_source": {
+      "title": "All logs",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "host",
+        "application",
+        "type"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Grape-Sidekiq-logs",
+    "_type": "search",
+    "_source": {
+      "title": "Grape - Sidekiq logs",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"application\",\"value\":\"grape\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"application\":{\"query\":\"grape\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"type\",\"value\":\"sidekiq\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"type\":{\"query\":\"sidekiq\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "Recruiter-search-emails-sents",
+    "_type": "search",
+    "_source": {
+      "title": "Recruiter search emails sents",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"source\",\"value\":\"/mnt/grape-log/sidekiq.log\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"source\":{\"query\":\"/mnt/grape-log/sidekiq.log\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"\\\"subject='The ids and emails from your recruiter search'\\\"\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "recruiter-alert",
+    "_type": "search",
+    "_source": {
+      "title": "recruiter alert",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*SendBookmarkedSearchAlerts*\"}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"filebeat-*\",\"key\":\"message\",\"negate\":false,\"value\":\"NoMethodError: undefined method `deliver' for SendBookmarkedSearchAlerts:Class\"},\"query\":{\"match\":{\"message\":{\"query\":\"NoMethodError: undefined method `deliver' for SendBookmarkedSearchAlerts:Class\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Deprecation_messages_on_business_alerts",
+    "_type": "search",
+    "_source": {
+      "title": "Deprecation_messages_on_business_alerts",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"\\\\[DEPRECATION\\\\]\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"application\",\"value\":\"business-alerts\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"application\":{\"query\":\"business-alerts\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "SMTP-mesages-deferred-error-450",
+    "_type": "search",
+    "_source": {
+      "title": "SMTP mesages deferred error 450",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "postfix_recipient",
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"450\",\"analyze_wildcard\":true}},\"filter\":[{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"application\",\"value\":\"mail\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"application\":{\"query\":\"mail\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}},{\"meta\":{\"negate\":false,\"index\":\"filebeat-*\",\"key\":\"postfix_status\",\"value\":\"deferred\",\"disabled\":false,\"alias\":null},\"query\":{\"match\":{\"postfix_status\":{\"query\":\"deferred\",\"type\":\"phrase\"}}},\"$state\":{\"store\":\"appState\"}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "SPAM-list-rejected-mails",
+    "_type": "search",
+    "_source": {
+      "title": "SPAM list rejected mails",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"\\\"http://csi.cloudmark.com/reset-request/?ip=107.20.207.187\\\" OR \\\"https://community.mimecast.com/docs/DOC-1369#550\\\" OR \\\"DNSBL:ATTRBL 521< 107.20.207.187 >_is_blocked.For information send an email to abuse_rbl@abuse-att.net\\\" OR \\\"Recipient address rejected: ERS-RBL.\\\"\",\"analyze_wildcard\":true}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"filebeat-*\",\"key\":\"application\",\"negate\":false,\"value\":\"mail\"},\"query\":{\"match\":{\"application\":{\"query\":\"mail\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Grape-API-calls-in-200-family",
+    "_type": "search",
+    "_source": {
+      "title": "Grape API calls in 200 family",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"application:grape AND http_status_code:<300\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Business-Alert-Errors",
+    "_type": "search",
+    "_source": {
+      "title": "Business Alert Errors",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"message:\\\"Search error\\\" AND context:\\\"Preparing Business Alert\\\" AND type:cron\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "Empty-Business-Alerts",
+    "_type": "search",
+    "_source": {
+      "title": "Empty Business Alerts",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"context:\\\"Preparing Business Alert\\\" AND message:\\\"No reports found\\\"\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Mail-hard-bounced-destination-addresses",
+    "_type": "search",
+    "_source": {
+      "title": "Mail hard bounced destination addresses",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "postfix_recipient"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"application:mail AND postfix_error_response:550\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "Generated-Business-Alert-Emails",
+    "_type": "search",
+    "_source": {
+      "title": "Generated Business Alert Emails",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"context:\\\"Preparing Business Alert\\\" AND message:\\\"Mail enqueued\\\"\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Generated-Bookmarked-Alert-Emails",
+    "_type": "search",
+    "_source": {
+      "title": "Generated Bookmarked Alert Emails",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"context:\\\"Bookmarked Search Alert\\\" AND message:\\\"Mail enqueued\\\"\",\"analyze_wildcard\":true}},\"filter\":[{\"$state\":{\"store\":\"appState\"},\"meta\":{\"alias\":null,\"disabled\":false,\"index\":\"filebeat-*\",\"key\":\"type\",\"negate\":false,\"value\":\"cron\"},\"query\":{\"match\":{\"type\":{\"query\":\"cron\",\"type\":\"phrase\"}}}}],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Empty-Bookmarked-Search-Alerts",
+    "_type": "search",
+    "_source": {
+      "title": "Empty Bookmarked Search Alerts",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"context:\\\"Bookmarked Search Alert\\\" AND message:\\\"No reports found\\\"\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "Bookmarked-Search-Alert-Errors",
+    "_type": "search",
+    "_source": {
+      "title": "Bookmarked Search Alert Errors",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647},\"query\":{\"query_string\":{\"query\":\"message:\\\"Search error\\\" AND context:\\\"Bookmarked Search Alert\\\" AND type:cron\",\"analyze_wildcard\":true}}}"
+      }
+    }
+  },
+  {
+    "_id": "alert_message:\"Processing-started\"",
+    "_type": "search",
+    "_source": {
+      "title": "alert_message:\"Processing started\"",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "_source"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"alert_message:\\\"Processing started\\\"\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "alert_message:-\"Mail-enqueued\"",
+    "_type": "search",
+    "_source": {
+      "title": "alert_message: \"Mail enqueued\"",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"alert_message:\\\"Mail enqueued\\\"\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Processed-Buadiness-Alerts",
+    "_type": "search",
+    "_source": {
+      "title": "Processed Buadiness Alerts",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"query\":\"context:\\\"Preparing Business Alert\\\" AND message:\\\"Processing started\\\"\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "Processed-Business-Alerts",
+    "_type": "search",
+    "_source": {
+      "title": "Processed Business Alerts",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "message"
+      ],
+      "sort": [
+        "@timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"filebeat-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"context:\\\"Preparing Business Alert\\\" AND message:\\\"Processing started\\\"\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  }
+]
