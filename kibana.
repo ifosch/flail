@@ -1,0 +1,197 @@
+[
+  {
+    "_id": "Alerts",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Alerts",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Business-Alerts-mails-enqueued\",\"panelIndex\":1,\"row\":1,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"col\":6,\"id\":\"Business-Alerts-search-errors\",\"panelIndex\":2,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Career-Alerts-enqueued-mails\",\"panelIndex\":3,\"row\":6,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"col\":6,\"id\":\"Career-Alerts-search-errors\",\"panelIndex\":4,\"row\":6,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Recruiter-Alerts-enqueued-mails\",\"panelIndex\":5,\"row\":11,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"Recruiter-Alerts-search-errors\",\"type\":\"visualization\",\"panelIndex\":6,\"size_x\":4,\"size_y\":5,\"col\":6,\"row\":11}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}},\"P-2\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}}},\"P-3\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}},\"P-4\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}},\"P-5\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-30d",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Bookmarked-Search-Alert",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Bookmarked Search Alert",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"Generated-Bookmarked-Alert-Emails\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":5,\"size_y\":4,\"col\":1,\"row\":1},{\"id\":\"Generated-Bookmarked-Alert-Emails\",\"type\":\"search\",\"panelIndex\":2,\"size_x\":5,\"size_y\":4,\"col\":6,\"row\":1,\"columns\":[\"_source\"],\"sort\":[\"@timestamp\",\"desc\"]},{\"id\":\"Empty-Bookmarked-Search-Alerts\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":5,\"size_y\":4,\"col\":1,\"row\":5},{\"id\":\"Empty-Bookmarked-Search-Alerts\",\"type\":\"search\",\"panelIndex\":4,\"size_x\":5,\"size_y\":4,\"col\":6,\"row\":5,\"columns\":[\"_source\"],\"sort\":[\"@timestamp\",\"desc\"]},{\"id\":\"Bookmarked-Search-Alert-Errors\",\"type\":\"visualization\",\"panelIndex\":5,\"size_x\":5,\"size_y\":4,\"col\":1,\"row\":9},{\"id\":\"Bookmarked-Search-Alert-Errors\",\"type\":\"search\",\"panelIndex\":6,\"size_x\":5,\"size_y\":4,\"col\":6,\"row\":9,\"columns\":[\"_source\"],\"sort\":[\"@timestamp\",\"desc\"]}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Business-Alerts",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Business Alerts",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Generated-Business-Alert-Emails\",\"panelIndex\":1,\"row\":1,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Empty-Business-Alerts\",\"panelIndex\":2,\"row\":5,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":6,\"id\":\"Business-Alert-Errors\",\"panelIndex\":5,\"row\":4,\"size_x\":5,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Busines-Alert-Results-per-Report-Type\",\"panelIndex\":9,\"row\":9,\"size_x\":5,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"Processed-business-Alerts\",\"type\":\"visualization\",\"panelIndex\":10,\"size_x\":5,\"size_y\":3,\"col\":6,\"row\":1},{\"id\":\"Business-Alert-Errors\",\"type\":\"search\",\"panelIndex\":11,\"size_x\":5,\"size_y\":6,\"col\":6,\"row\":8,\"columns\":[\"message\"],\"sort\":[\"@timestamp\",\"desc\"]}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}}},\"P-9\":{\"spy\":{\"mode\":{\"name\":null,\"fill\":false}}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-7d",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "General-logging-view",
+    "_type": "dashboard",
+    "_source": {
+      "title": "General logging view",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Amount-of-logs-per-type\",\"panelIndex\":1,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":5,\"id\":\"Amount-of-logs-per-host\",\"panelIndex\":2,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Amount-of-logs-per-application\",\"panelIndex\":3,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"General-logging-view-title\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":12,\"size_y\":2,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/M",
+      "timeFrom": "now/M",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "grape",
+    "_type": "dashboard",
+    "_source": {
+      "title": "grape",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":5,\"id\":\"grape-HTTP-return-codes\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"Grape-endpoint-ratios\",\"panelIndex\":2,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Grape-entries-over-time\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Grape-errors-per-endpoint\",\"panelIndex\":4,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"id\":\"grape-percentile-time-per-database-per-request\",\"type\":\"visualization\",\"panelIndex\":5,\"size_x\":4,\"size_y\":3,\"col\":9,\"row\":1},{\"id\":\"grape-percentile-time-per-request\",\"type\":\"visualization\",\"panelIndex\":6,\"size_x\":4,\"size_y\":3,\"col\":9,\"row\":4},{\"id\":\"Least-used-endpoints\",\"type\":\"visualization\",\"panelIndex\":7,\"size_x\":4,\"size_y\":3,\"col\":1,\"row\":7}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-3\":{\"vis\":{\"legendOpen\":false}},\"P-6\":{\"vis\":{\"legendOpen\":false}},\"P-5\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "HTTP",
+    "_type": "dashboard",
+    "_source": {
+      "hits": 0,
+      "timeRestore": false,
+      "description": "",
+      "title": "HTTP",
+      "panelsJSON": "[{\"col\":4,\"id\":\"Web-transactions\",\"row\":1,\"size_x\":9,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"HTTP-error-codes\",\"row\":8,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"HTTP-error-codes-evolution\",\"row\":8,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Navigation\",\"row\":1,\"size_x\":3,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Total-number-of-HTTP-transactions\",\"row\":5,\"size_x\":3,\"size_y\":3,\"type\":\"visualization\"},{\"col\":4,\"id\":\"HTTP-codes-for-the-top-queries\",\"row\":5,\"size_x\":9,\"size_y\":3,\"type\":\"visualization\"},{\"id\":\"Top-10-HTTP-requests\",\"type\":\"visualization\",\"size_x\":12,\"size_y\":5,\"col\":1,\"row\":11}]",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "KR:-100%-of-expected-alerts-are-generated-and-sent",
+    "_type": "dashboard",
+    "_source": {
+      "title": "KR: 100% of expected alerts are generated and sent",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"alert_message:\\\"Mail-enqueued\\\"-visualization\",\"panelIndex\":3,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":7,\"id\":\"alert_message:\\\"Processing-started\\\"-visualization\",\"panelIndex\":4,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now",
+      "timeFrom": "now-7d",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Mail-server",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Mail server",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"SPAM-list-rejected-mails\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Mail-log-entries-over-time\",\"panelIndex\":2,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"Mail-status-ratios\",\"panelIndex\":3,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Mail-log-entries-per-message-over-time\",\"panelIndex\":4,\"row\":1,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"Deferred-entries-per-messageid\",\"panelIndex\":5,\"row\":1,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"SMTP-messages-error-450-count-by-message-and-recipient-over-time\",\"panelIndex\":6,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"Unique-postfix-recipients-list-of-error-550\",\"panelIndex\":7,\"row\":7,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"Mail-status-ratios-unique-messageid\",\"type\":\"visualization\",\"panelIndex\":8,\"size_x\":4,\"size_y\":3,\"col\":1,\"row\":7}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"legendOpen\":false}},\"P-5\":{\"vis\":{\"legendOpen\":false}},\"P-6\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Parsing_status",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Parsing_status",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":5,\"id\":\"grokparsefailure_over_time\",\"panelIndex\":1,\"row\":5,\"size_x\":6,\"size_y\":4,\"type\":\"visualization\"},{\"col\":5,\"id\":\"dateparsefailure_over_time\",\"panelIndex\":2,\"row\":1,\"size_x\":6,\"size_y\":4,\"type\":\"visualization\"},{\"id\":\"log-messages-on-type-and-application\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":4,\"size_y\":8,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"vis\":{\"legendOpen\":false}},\"P-2\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Production-General-logging-view",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Production General logging view",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Amount-of-logs-per-type\",\"panelIndex\":1,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":5,\"id\":\"Amount-of-logs-per-host\",\"panelIndex\":2,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"Amount-of-logs-per-application\",\"panelIndex\":3,\"row\":3,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"id\":\"General-logging-view-title\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":12,\"size_y\":2,\"col\":1,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "now/M",
+      "timeFrom": "now/M",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "Sidekiq-status",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Sidekiq status",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"Sidekiq-class_name-ratio\",\"panelIndex\":1,\"row\":4,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"id\":\"Sidekiq-entries-over-time\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":4,\"size_y\":3,\"col\":1,\"row\":1},{\"id\":\"Sidekiq-jobs-over-time\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":4,\"size_y\":3,\"col\":9,\"row\":1},{\"id\":\"Sidekiq-threads-over-time\",\"type\":\"visualization\",\"panelIndex\":4,\"size_x\":4,\"size_y\":3,\"col\":5,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-2\":{\"vis\":{\"legendOpen\":false}},\"P-3\":{\"vis\":{\"legendOpen\":false}},\"P-4\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  }
+]
