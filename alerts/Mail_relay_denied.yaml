@@ -1,0 +1,21 @@
+name: Relay access denied for Alerts
+type: frequency
+index: filebeat-*
+num_events: 50
+timeframe:
+    minutes: 10
+filter:
+- term:
+    application: "mail"
+- match:
+    message:
+        query: "Relay access denied"
+        operator: "and"
+- match:
+    message:
+        query: "proto=ESMTP helo=<smtp.devex.io>"
+        operator: "and"
+alert:
+- "email"
+email:
+- "prod-infra@devex.com"
