@@ -1,0 +1,15 @@
+name: Suspicious ENOENT occurrence
+type: frequency
+index: filebeat-*
+num_events: 50
+timeframe:
+    minutes: 10
+filter:
+- match:
+    message:
+        query: "Errno::ENOENT"
+        operator: "and"
+alert:
+- "email"
+email:
+- "prod-infra@devex.com"
