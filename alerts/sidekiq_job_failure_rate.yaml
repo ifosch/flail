@@ -1,0 +1,19 @@
+name: Sidekiq job failures
+type: frequency
+index: filebeat-*
+num_events: 50
+timeframe:
+    minutes: 10
+filter:
+- term:
+    application: "grape"
+- term:
+    type: "sidekiq"
+- match:
+    message:
+        query: "INFO: fail"
+	operator: "and"
+alert:
+- "email"
+email:
+- "prod-infra@devex.com"
