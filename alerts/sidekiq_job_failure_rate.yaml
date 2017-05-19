@@ -12,7 +12,7 @@ filter:
 - match:
     message:
         query: "INFO: fail"
-	operator: "and"
+        operator: "and"
 alert:
 - "email"
 email:
