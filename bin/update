@@ -10,7 +10,7 @@ usage() {
 
 cd $(dirname $(dirname ${0}))
 
-unzip ${1} patterns/* &> /dev/null
+unzip -o ${1} patterns/* &> /dev/null
 rm patterns/.DS_store &> /dev/null
 
 cd - &>/dev/null
