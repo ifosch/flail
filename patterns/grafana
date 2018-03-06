@@ -1,0 +1,3 @@
+GRAFANA_LOG_ENTRY t=%{TIMESTAMP_ISO8601:event_timestamp} lvl=%{LOGLEVEL:level} msg=%{GREEDYDATA:message} logger=%{GREEDYDATA:logger} userId=%{NUMBER:user_id:int} orgId=%{NUMBER:org_id:int} uname=%{GREEDYDATA:uname} method=%{HTTP_METHOD:method} path=%{PATH:path} status=%{NUMBER:status:int} remote_addr=%{IP:remote_addr} time_ms=%{NUMBER:time} size=%{NUMBER:size:int} referer=%{URI:referer}
+
+GRAFANA_LOG %{GRAFANA_LOG_ENTRY}
